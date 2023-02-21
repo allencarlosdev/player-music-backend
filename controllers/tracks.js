@@ -49,8 +49,11 @@ const updateItem = async (req, res) => {
 // delete an item
 const deleteItem = async (req, res) => {
   try {
-    req = matchedData(req)
-    const { id } = req
+    const { id } = matchedData(req)
+    // with soft delete
+    // const data = await tracksModel.delete({ _id: id })
+
+    // with complete delete
     const data = await tracksModel.deleteOne({ _id: id })
     res.send({ data })
   } catch (error) {

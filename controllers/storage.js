@@ -12,7 +12,7 @@ const getItems = async (req, res) => {
     const data = await storageModel.find({})
     res.send({ data })
   } catch (error) {
-    handleHttpError(res, 'ERROR_GET_ITEMS')
+    return handleHttpError(res, 'ERROR_GET_ITEMS')
   }
 }
 // get an item
@@ -22,7 +22,7 @@ const getItem = async (req, res) => {
     const data = await storageModel.findById(id)
     res.send({ data })
   } catch (error) {
-    handleHttpError(res, 'ERROR_GET_ITEM')
+    return handleHttpError(res, 'ERROR_GET_ITEM')
   }
 }
 // create an item
@@ -36,7 +36,7 @@ const createItem = async (req, res) => {
     const data = await storageModel.create(fileData)
     res.send({ data })
   } catch (error) {
-    handleHttpError(res, 'ERROR_CREATE_ITEM')
+    return handleHttpError(res, 'ERROR_CREATE_ITEM')
   }
 }
 
@@ -60,7 +60,7 @@ const deleteItem = async (req, res) => {
     }
     res.send({ data })
   } catch (error) {
-    handleHttpError(res, 'ERROR_DELETE_ITEM')
+    return handleHttpError(res, 'ERROR_DELETE_ITEM')
   }
 }
 

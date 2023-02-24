@@ -1,5 +1,6 @@
 const express = require('express')
 const authMiddleware = require('../middleware/session')
+const checkRole = require('../middleware/role')
 const router = express.Router()
 const {
   validatorCreateItem,
@@ -14,9 +15,21 @@ const {
 } = require('../controllers/tracks')
 
 router.get('/', authMiddleware, getItems)
-router.get('/:id', validatorGetItem, getItem)
-router.post('/', validatorCreateItem, createItem)
-router.put('/:id', validatorGetItem, validatorCreateItem, updateItem)
-router.delete('/:id', validatorGetItem, deleteItem)
+router.get('/:id', authMiddleware, validatorGetItem, getItem)
+router.post(
+  '/',
+  authMiddleware,
+  checkRole(['admin']),
+  validatorCreateItem,
+  createItem
+)
+router.put(
+  '/:id',
+  authMiddleware,
+  validatorGetItem,
+  validatorCreateItem,
+  updateItem
+)
+router.delete('/:id', authMiddleware, validatorGetItem, deleteItem)
 
 module.exports = router
